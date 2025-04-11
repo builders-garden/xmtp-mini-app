@@ -1,14 +1,9 @@
 import type { Signer as NodeSigner } from "@xmtp/node-sdk";
 import { fromString, toString } from "uint8arrays";
-import {
-  createWalletClient,
-  Hex,
-  http,
-  toBytes,
-  type WalletClient,
-} from "viem";
+import { createWalletClient, Hex, http, toBytes } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 import { mainnet } from "viem/chains";
+import { webcrypto } from "node:crypto";
 
 interface User {
   key: `0x${string}`;
@@ -66,7 +61,7 @@ export const createNodeSigner = (key: string): NodeSigner => {
  */
 export const generateEncryptionKeyHex = () => {
   /* Generate a random encryption key */
-  const uint8Array = crypto.getRandomValues(new Uint8Array(32));
+  const uint8Array = webcrypto.getRandomValues(new Uint8Array(32));
   /* Convert the encryption key to a hex string */
   return toString(uint8Array, "hex");
 };
