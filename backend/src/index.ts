@@ -284,7 +284,7 @@ app.get(
           : null;
 
         const responseObject = {
-          groupId: process.env.GROUP_ID,
+          groupId: GROUP_ID,
           groupName: (conversation as Group).name,
           isMember,
           memberCount: groupMembers.length,
