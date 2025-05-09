@@ -1,4 +1,3 @@
-import { FrameContext } from "@farcaster/frame-core/dist/context";
 import { env } from "@/lib/env";
 
 /**
@@ -45,24 +44,12 @@ export async function getFonts(): Promise<
  * @returns The farcaster manifest for the frame
  */
 export async function getFarcasterManifest() {
-  let accountAssociation = {
-    header:
-      "eyJmaWQiOjEwOTUyLCJ0eXBlIjoiY3VzdG9keSIsImtleSI6IjB4OTI5Mjk3RGVGZDJBN2IzMzk0QTEyNkMwMDUxMkY2NjUxMzQ1YTE4ZiJ9",
-    payload: "eyJkb21haW4iOiJ4bXRwLW1pbmktYXBwLnZlcmNlbC5hcHAifQ",
-    signature:
-      "MHhkMmZkNTgxOWRiZWNhZjk4ZDUxZTNkOTBiNjI0NTMxNmRhYjA3MzNkM2M5MmZjNjRkMGYwZDc0ZGVlNmQ3ZmU3NmFkNTM0ZDEzOGM0NTRiNDJlMWE2MzFiNzhhOGQzNWRiZmRjODEzZmQ5NjYzMWFkZDQ3NDVkZjY1NzJiMDYzNDFi",
-  };
-  if (env.NEXT_PUBLIC_APP_ENV !== "production") {
-    accountAssociation = {
-      header:
-        "eyJmaWQiOjE4OTYzNiwidHlwZSI6ImN1c3RvZHkiLCJrZXkiOiIweGMwODNEYjQxNThkNzdDMWNDYjIxMkI5MUQ3MWMwZmEzODcyMTc4YzEifQ",
-      payload: "eyJkb21haW4iOiJsb2NhbGhvc3Q6MzAwMCJ9",
-      signature:
-        "MHg3ZjQzZjIyNTM0NjkxZGZlZjAyYTk3MTMyM2VkMWZhOTI4NjJlZDg4YTg5NzY0OTZlMzY5NWZjNzdlOTc1NDMxMjVmYWZiNzc2ZWMwOTdiMmU1ODcwZmNmNWIxYjc3ZmZmMjYwOWVkYTVkNGIwYjM4MjYwMTk3ZThjZThiYjUzOTFj",
-    };
-  }
   return {
-    accountAssociation,
+    accountAssociation: {
+      header: env.NEXT_PUBLIC_FARCASTER_HEADER,
+      payload: env.NEXT_PUBLIC_FARCASTER_PAYLOAD,
+      signature: env.NEXT_PUBLIC_FARCASTER_SIGNATURE,
+    },
     frame: {
       version: "1",
       name: "XMTP MiniApp",

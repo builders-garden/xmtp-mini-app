@@ -23,8 +23,12 @@ export const env = createEnv({
       .enum(["development", "production"])
       .optional()
       .default("development"),
-    NEXT_PUBLIC_ENCRYPTION_KEY: z.string().min(1),
     NEXT_PUBLIC_XMTP_ENV: z.enum(["production", "local", "dev"]).default("dev"),
+    NEXT_PUBLIC_ENCRYPTION_KEY: z.string().min(1),
+    // Farcaster Manifest
+    NEXT_PUBLIC_FARCASTER_HEADER: z.string().min(1),
+    NEXT_PUBLIC_FARCASTER_PAYLOAD: z.string().min(1),
+    NEXT_PUBLIC_FARCASTER_SIGNATURE: z.string().min(1),
   },
   // For Next.js >= 13.4.4, you only need to destructure client variables:
   experimental__runtimeEnv: {
@@ -32,5 +36,9 @@ export const env = createEnv({
     NEXT_PUBLIC_URL: getPublicUrl(),
     NEXT_PUBLIC_APP_ENV: process.env.NEXT_PUBLIC_APP_ENV,
     NEXT_PUBLIC_XMTP_ENV: process.env.NEXT_PUBLIC_XMTP_ENV,
+    NEXT_PUBLIC_FARCASTER_HEADER: process.env.NEXT_PUBLIC_FARCASTER_HEADER,
+    NEXT_PUBLIC_FARCASTER_PAYLOAD: process.env.NEXT_PUBLIC_FARCASTER_PAYLOAD,
+    NEXT_PUBLIC_FARCASTER_SIGNATURE:
+      process.env.NEXT_PUBLIC_FARCASTER_SIGNATURE,
   },
 });
