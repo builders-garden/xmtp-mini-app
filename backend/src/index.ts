@@ -250,7 +250,8 @@ app.get(
 
         const groupMembers = await (conversation as Group).members();
         const messages = await (conversation as Group).messages();
-        const lastMessage = messages.length > 0 ? messages[messages.length - 1] : null;
+        const lastMessage =
+          messages.length > 0 ? messages[messages.length - 1] : null;
 
         const isMember = groupMembers.some(
           (member) => member.inboxId === req.query.inboxId,

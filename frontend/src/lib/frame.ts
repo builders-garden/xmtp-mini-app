@@ -1,5 +1,5 @@
-import { env } from "@/lib/env";
 import { FrameContext } from "@farcaster/frame-core/dist/context";
+import { env } from "@/lib/env";
 
 /**
  * Get the fonts for the frame from the public folder

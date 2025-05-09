@@ -1,7 +1,6 @@
 "use client";
 
 import { FrameContext } from "@farcaster/frame-core/dist/context";
-import { sdk } from "@/lib/frame";
 import {
   createContext,
   ReactNode,
@@ -9,6 +8,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { sdk } from "@/lib/frame";
 
 interface FrameContextValue {
   context: FrameContext | null;

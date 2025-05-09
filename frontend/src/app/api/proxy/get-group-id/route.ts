@@ -33,7 +33,7 @@ export async function GET(request: Request) {
       // Log the raw response for debugging
       const rawResponseText = await response.clone().text();
       console.log(`Backend response received, status: ${response.status}`);
-      
+
       try {
         const data = await response.json();
         return NextResponse.json(data);

@@ -2,9 +2,7 @@
 import { Metadata } from "next";
 import { OG_IMAGE_SIZE } from "@/lib/constants";
 import { env } from "@/lib/env";
-
 import Page from "@/pages/Page";
-
 
 /**
  * Default Next.js function to generate metadata for the page
