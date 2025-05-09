@@ -19,8 +19,12 @@ type Props = {
  * https://nextjs.org/docs/app/api-reference/functions/generate-metadata
  * @returns metadata object
  */
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { conversationId } = await params;
+export async function generateMetadata({
+  params,
+  searchParams,
+}: Props): Promise<Metadata> {
+  const _searchParams = await searchParams;
+  const { conversationId } = _searchParams; // access to 123 in url example.org/?conversationId=123
 
   const ogTitle = "XMTP Group Chat";
   const ogDescription = "Join the group chat on Farcaster with XMTP 💬";
@@ -52,7 +56,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: [ogImageUrl],
     },
     other: {
-      "fc:frame": JSON.stringify(getFrameMetadata({ conversationId })),
+      "fc:frame": JSON.stringify(getFrameMetadata(_searchParams)),
     },
   };
 }

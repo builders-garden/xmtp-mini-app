@@ -21,11 +21,11 @@ export const Providers = ({
 }) => {
   return (
     <ErudaProvider>
-      <FrameProvider>
-        <CustomWagmiProvider cookies={cookies}>
-            <XMTPProvider>{children}</XMTPProvider>
-        </CustomWagmiProvider>
-      </FrameProvider>
+      <CustomWagmiProvider cookies={cookies}>
+        <FrameProvider>
+          <XMTPProvider>{children}</XMTPProvider>
+        </FrameProvider>
+      </CustomWagmiProvider>
     </ErudaProvider>
   );
 };
