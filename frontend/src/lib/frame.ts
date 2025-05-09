@@ -40,7 +40,8 @@ export async function getFonts(): Promise<
 
 /**
  * Get the farcaster manifest for the frame, generate yours from Warpcast Mobile
- *  On your phone to Settings > Developer > Domains > insert website hostname > Generate domain manifest
+ *  On your phone go to Settings > Developer > Domains > insert website hostname > Generate domain manifest
+ *  Or on your browser go to https://warpcast.com/~/developers/mini-apps/manifest and insert your domain
  * @returns The farcaster manifest for the frame
  */
 export async function getFarcasterManifest() {
@@ -79,6 +80,38 @@ export const frameSdk = {
     addFrame: async () => ({}),
     composeCast: async () => {},
   },
+};
+
+/**
+ * Get the frame metadata for the page
+ * @param _params The parameters for the page
+ * @returns The frame metadata for the page
+ */
+export const getFrameMetadata = (_params: {
+  [key: string]: string | string[] | undefined;
+}) => {
+  const searchParamsString = Object.entries(_params)
+    .map(([key, value]) => `${key}=${value}`)
+    .join("&");
+  const { conversationId } = _params;
+  const buttonTitle = conversationId
+    ? "Open Conversation in XMTP"
+    : "Launch XMTP MiniApp";
+
+  return {
+    version: "next",
+    imageUrl: `${env.NEXT_PUBLIC_URL}/images/frame-default-image.png`,
+    button: {
+      title: buttonTitle,
+      action: {
+        type: "launch_frame",
+        name: "XMTP MiniApp",
+        url: `${env.NEXT_PUBLIC_URL}/${searchParamsString ? `?${searchParamsString}` : ""}`,
+        splashImageUrl: `${env.NEXT_PUBLIC_URL}/images/splash.png`,
+        splashBackgroundColor: "#0d0d0d",
+      },
+    },
+  };
 };
 
 export { frameSdk as sdk };

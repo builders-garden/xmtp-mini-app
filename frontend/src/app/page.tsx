@@ -1,18 +1,32 @@
 // This is a Server Component
 import { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { OG_IMAGE_SIZE } from "@/lib/constants";
 import { env } from "@/lib/env";
-import Page from "@/pages/Page";
+import { getFrameMetadata } from "@/lib/frame";
+
+const HomePage = dynamic(() => import("@/pages/Page"), {
+  ssr: false,
+});
+
+type Props = {
+  params: Promise<{ conversationId: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
 
 /**
  * Default Next.js function to generate metadata for the page
  * https://nextjs.org/docs/app/api-reference/functions/generate-metadata
  * @returns metadata object
  */
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { conversationId } = await params;
+
   const ogTitle = "XMTP Group Chat";
   const ogDescription = "Join the group chat on Farcaster with XMTP 💬";
-  const ogImageUrl = `${env.NEXT_PUBLIC_URL}/images/frame-default-image.png`;
+  const ogImageUrl = conversationId
+    ? `${env.NEXT_PUBLIC_URL}/api/og/image/${conversationId}`
+    : `${env.NEXT_PUBLIC_URL}/images/frame-default-image.png`;
 
   return {
     title: ogTitle,
@@ -37,9 +51,12 @@ export async function generateMetadata(): Promise<Metadata> {
       creatorId: "1382634722719858690",
       images: [ogImageUrl],
     },
+    other: {
+      "fc:frame": JSON.stringify(getFrameMetadata({ conversationId })),
+    },
   };
 }
 
 export default function Home() {
-  return <Page />;
+  return <HomePage />;
 }

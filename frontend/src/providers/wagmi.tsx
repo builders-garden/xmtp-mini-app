@@ -1,11 +1,19 @@
 "use client";
 
-import { base, mainnet } from "viem/chains";
-import { cookieStorage, createConfig, createStorage, http, cookieToInitialState, type Config } from "wagmi";
+import { farcasterFrame } from "@farcaster/frame-wagmi-connector";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { WagmiProvider } from "wagmi";
-import { injected } from "wagmi/connectors";
 import React from "react";
+import { base, mainnet } from "viem/chains";
+import {
+  cookieStorage,
+  cookieToInitialState,
+  createConfig,
+  createStorage,
+  http,
+  WagmiProvider,
+  type Config,
+} from "wagmi";
+import { injected } from "wagmi/connectors";
 
 const chains = [mainnet, base] as const;
 
@@ -36,7 +44,7 @@ export const wagmiConfig = createConfig({
     [base.id]: http("https://base.llamarpc.com"),
   },
   // Add the injected connector for wallet connections
-  connectors: [injected()],
+  connectors: [injected(), farcasterFrame()],
 });
 
 // Create query client for React Query
@@ -59,4 +67,4 @@ export const CustomWagmiProvider = ({
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </WagmiProvider>
   );
-}; 
+};
